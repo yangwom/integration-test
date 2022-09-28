@@ -17,13 +17,17 @@ public class HelloController : ControllerBase
     [HttpGet]    
     public string Get()
     {
-        throw new NotImplementedException();
+     return "hello, use /{language} to get a hello in your language!";
     }
 
-    [Route("[controller]/{}")]
+    [Route("[controller]/{language}")]
     [HttpGet]
     public string Get(string language)
     {
-        throw new NotImplementedException();  
+        if(language == "br") return "[br] : Olá";
+        if(language == "en") return "[en] : Hello";
+        if(language == "es") return "[es] : Hola";
+        if(language == "de") return "[de] : Hallo";
+        return "Não conheço essa!";
     }
 }

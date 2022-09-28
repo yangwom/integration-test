@@ -24,7 +24,9 @@ public class TestHello : IClassFixture<WebApplicationFactory<Program>>
     [InlineData("/hello/aaa")]
     public async Task GetEndpointsReturnSuccess(string url)
     {        
-        throw new NotImplementedException();
+        var client = _factory.CreateClient();
+        var response = await client.GetAsync(url);
+        response.EnsureSuccessStatusCode();
     }
 
     [Theory(DisplayName = "Hello deve responder com a resposta correta")]    
@@ -35,6 +37,9 @@ public class TestHello : IClassFixture<WebApplicationFactory<Program>>
     [InlineData("/hello/aaa", "Não conheço essa!")]
     public async Task GetEndpointsReturnContent(string url, string expectedContent)
     {        
-        throw new NotImplementedException();
+        var client = _factory.CreateClient();
+        var response = await client.GetAsync(url);
+        var content = await response.Content.ReadAsStringAsync();
+        content.Should().Be(expectedContent);
     }
 }
